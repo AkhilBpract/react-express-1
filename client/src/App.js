@@ -6,10 +6,10 @@ const App = () => {
   const methods = useForm();
   const fetchData = async () => {
     try {
-      const { data } = await axios.get("/api");
-      // const res = await fetch("/api").then((response) => response.json());
+      const { data } = await axios.get("/api/items");
+      // const res = await fetch("/api/items").then((response) => response.json());
       console.log(data);
-      setData(data.data);
+      setData(data);
     } catch (err) {
       console.log(err);
     }
@@ -24,7 +24,7 @@ const App = () => {
 
     // Object.entries(inputData).forEach(([k, v]) => formData.append(k, v));
     try {
-      const res = await axios.post("/items", inputData);
+      const res = await axios.post("/api/items", inputData);
     } catch (err) {
       console.log(err);
     }
@@ -34,8 +34,10 @@ const App = () => {
     <>
       <p>Test</p>
 
-      {data.map((item) => (
-        <>{item}</>
+      {data.map(({ name }) => (
+        <>
+          <p> {name}</p>
+        </>
       ))}
       <form onSubmit={handleSubmit(onSubmit)}>
         <input

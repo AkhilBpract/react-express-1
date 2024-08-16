@@ -1,41 +1,21 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const Item = require("./models/Item");
+const connectDB = require("./config/db");
+const itemRoutes = require("./routes/itemRoutes");
+require("dotenv").config();
+
 const app = express();
+
+// Connect to MongoDB
+connectDB();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-app.get("/api", (req, res) => {
-  res.json({ data: ["user one", "user two", "user three"] });
-});
+// Use item routes
+app.use("/api/items", itemRoutes);
 
-app.listen(5001, () => {
-  console.log("Server starts on port 5001");
-});
+const PORT = process.env.PORT || 5000;
 
-mongoose
-  .connect(
-    "mongodb+srv://akhilcvb:pIf1wsncQ8pg4ljj@cluster0.d1bidpl.mongodb.net",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("Connection error", error);
-  });
-
-app.post("/items", async (req, res) => {
-  console.log(req.body, "post .........");
-  const newItem = new Item(req.body);
-  try {
-    const savedItem = await newItem.save();
-    res.status(201).json(savedItem);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
