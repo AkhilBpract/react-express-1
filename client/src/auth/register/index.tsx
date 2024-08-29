@@ -1,9 +1,9 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Field, Label, Switch } from "@headlessui/react";
 
-const Index = () => {
+const Index = forwardRef<HTMLDivElement>(() => {
   const [agreed, setAgreed] = useState(false);
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -21,7 +21,7 @@ const Index = () => {
       </div>
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Contact sales
+          Registration
         </h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
           Aute magna irure deserunt veniam aliqua magna enim voluptate.
@@ -187,6 +187,6 @@ const Index = () => {
       </form>
     </div>
   );
-};
+});
 
 export default Index;

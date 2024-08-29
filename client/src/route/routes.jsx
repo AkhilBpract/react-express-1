@@ -10,10 +10,10 @@ import LoadingComponent from "./loading-component";
 const ErrorPage = LoadingComponent(lazy(() => import("./error-page.jsx")));
 const Login = LoadingComponent(lazy(() => import("../auth/login/index.tsx")));
 const Quantity = LoadingComponent(
-  lazy(() => import("../components/create-quantity/index.jsx"))
+  lazy(() => import("../create-quantity/index.jsx"))
 );
 const Register = LoadingComponent(
-  lazy(() => import("../auth/register/index.jsx"))
+  lazy(() => import("../auth/register/index.tsx"))
 );
 
 const Routes = () => {
@@ -24,7 +24,7 @@ const Routes = () => {
       children: [
         { index: true, element: <Navigate to="login" /> },
         { path: "login", element: <Login title="test" /> },
-        { path: "register", element: <Register title="test" /> },
+        { path: "register", element: <Register /> },
       ],
     },
     {
@@ -44,7 +44,7 @@ const Routes = () => {
 };
 const LoadExternalHTML = () => {
   useEffect(() => {
-    window.location.href = "/perfex/index.html"; // Redirects to your HTML file
+    window.location.href = "/prefix/index.html"; // Redirects to your HTML file
   }, []);
 
   return null; // You can return null since this component just redirects
