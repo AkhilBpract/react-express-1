@@ -12,7 +12,9 @@ const Login = LoadingComponent(lazy(() => import("../auth/login/index.tsx")));
 const Quantity = LoadingComponent(
   lazy(() => import("../components/create-quantity/index.jsx"))
 );
-// const Prefix = LoadingComponent(lazy(() => import("../components/landing/index.jsx")));
+const Register = LoadingComponent(
+  lazy(() => import("../auth/register/index.jsx"))
+);
 
 const Routes = () => {
   const router = useRoutes([
@@ -22,6 +24,7 @@ const Routes = () => {
       children: [
         { index: true, element: <Navigate to="login" /> },
         { path: "login", element: <Login title="test" /> },
+        { path: "register", element: <Register title="test" /> },
       ],
     },
     {
