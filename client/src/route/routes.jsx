@@ -15,6 +15,7 @@ const Quantity = LoadingComponent(
 const Register = LoadingComponent(
   lazy(() => import("../auth/register/index.tsx"))
 );
+const Preview = LoadingComponent(lazy(() => import("../preview/index.jsx")));
 
 const Routes = () => {
   const router = useRoutes([
@@ -26,6 +27,10 @@ const Routes = () => {
         { path: "login", element: <Login title="test" /> },
         { path: "register", element: <Register /> },
       ],
+    },
+    {
+      path: "preview",
+      element: <Preview />,
     },
     {
       path: "quantity",
