@@ -4,7 +4,7 @@ import UnstyledInputBasic from "./UnstyledInputIntroduction";
 
 const TextField = ({ name, label }: { name: string; label: string }) => {
   const { control, watch } = useFormContext();
-  console.log(watch(name));
+
   return (
     <div>
       <Controller

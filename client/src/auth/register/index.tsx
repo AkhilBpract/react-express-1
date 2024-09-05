@@ -5,7 +5,8 @@ import { Field, Label, Switch } from "@headlessui/react";
 
 import { useForm } from "react-hook-form";
 import ReactFormProvider from "../../components/react-form-provider";
-import TextField from "src/components/TextFeild";
+import TextField from "src/components/text-fiedl/TextFeild";
+import DropDown from "src/components/drop-down/DropDown";
 
 const Index = forwardRef<HTMLDivElement, {}>((_, ref) => {
   const [agreed, setAgreed] = useState(false);
@@ -13,7 +14,10 @@ const Index = forwardRef<HTMLDivElement, {}>((_, ref) => {
   const onSubmit = (data: any) => {
     console.log(data);
   };
-
+  const country = [
+    { value: 1, label: "test" },
+    { value: 1, label: "test" },
+  ];
   return (
     <div ref={ref}>
       <ReactFormProvider methods={methods} onSubmit={onSubmit}>
@@ -43,9 +47,11 @@ const Index = forwardRef<HTMLDivElement, {}>((_, ref) => {
             method="POST"
             className="mx-auto mt-16 max-w-xl sm:mt-20"
           >
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
               <TextField name="first_name" label="First Name" />
-              <div>
+              <TextField name="last_name" label="Last Name" />
+
+              {/* <div>
                 <label
                   htmlFor="last-name"
                   className="block text-sm font-semibold leading-6 text-gray-900"
@@ -61,75 +67,15 @@ const Index = forwardRef<HTMLDivElement, {}>((_, ref) => {
                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
+              </div> */}
+              <div className="sm:col-span-2">
+                <TextField name="username" label="Username" />
               </div>
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="company"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
-                >
-                  Company
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="company"
-                    name="company"
-                    type="text"
-                    autoComplete="organization"
-                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+                <TextField name="email" label="Email" />
               </div>
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
-                >
-                  Email
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="phone-number"
-                  className="block text-sm font-semibold leading-6 text-gray-900"
-                >
-                  Phone number
-                </label>
-                <div className="relative mt-2.5">
-                  <div className="absolute inset-y-0 left-0 flex items-center">
-                    <label htmlFor="country" className="sr-only">
-                      Country
-                    </label>
-                    <select
-                      id="country"
-                      name="country"
-                      className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                    >
-                      <option>US</option>
-                      <option>CA</option>
-                      <option>EU</option>
-                    </select>
-                    <ChevronDownIcon
-                      aria-hidden="true"
-                      className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
-                    />
-                  </div>
-                  <input
-                    id="phone-number"
-                    name="phone-number"
-                    type="tel"
-                    autoComplete="tel"
-                    className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+                <DropDown name="email" label="Email" options={country} />
               </div>
               <div className="sm:col-span-2">
                 <label
