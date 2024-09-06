@@ -177,7 +177,7 @@ const AnimatedListbox = React.forwardRef(function AnimatedListbox<
       enterClassName="open"
       exitClassName="closed"
     >
-      <Listbox  {...other} ref={ref} />
+      <Listbox {...other} ref={ref} />
     </CssTransition>
   );
 });
@@ -188,7 +188,7 @@ export const Option = styled(BaseOption)(
   padding: 8px;
   border-radius: 8px;
   cursor: default;
-
+  margin-top:5px;
   &:last-of-type {
     border-bottom: none;
   }

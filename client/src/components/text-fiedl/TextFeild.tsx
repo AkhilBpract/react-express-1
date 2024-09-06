@@ -2,7 +2,13 @@ import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import UnstyledInputBasic from "./UnstyledInputIntroduction";
 
-const TextField = ({ name, label }: { name: string; label: string }) => {
+const TextField = ({
+  name,
+  label,
+}: {
+  name: string;
+  label: string;
+}) => {
   const { control, watch } = useFormContext();
 
   return (
@@ -12,7 +18,10 @@ const TextField = ({ name, label }: { name: string; label: string }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <>
-            <UnstyledInputBasic placeholder={label} {...field} />
+            <UnstyledInputBasic
+              placeholder={label}
+              {...field}
+            />
           </>
         )}
       />
