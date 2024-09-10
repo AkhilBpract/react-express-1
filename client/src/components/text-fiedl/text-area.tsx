@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input as BaseInput, InputProps } from "@mui/base/Input";
 import { styled } from "@mui/system";
@@ -19,7 +19,11 @@ const Input = React.forwardRef(function CustomInput(
     />
   );
 });
-const TextArea = ({ name, label }: { name: string; label: string }) => {
+interface TextAreaProps {
+  name: string;
+  label: string;
+}
+const TextArea: FC<TextAreaProps> = ({ name, label }) => {
   const { control, watch } = useFormContext();
 
   return (
