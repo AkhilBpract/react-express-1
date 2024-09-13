@@ -12,6 +12,14 @@ connectDB();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+// Middleware for request timeout
+app.use((req, res, next) => {
+  res.setTimeout(120000, () => {
+    res.status(408).json({ message: "Request timed out" });
+  });
+  next();
+});
+
 // Use item routes
 app.use("/api/items", itemRoutes);
 app.use("/api/users", userRoutes);
