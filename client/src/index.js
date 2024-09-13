@@ -10,11 +10,9 @@ import { HelmetProvider } from "react-helmet-async";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <div class="bg-black dark:bg-black">
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    </div>
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </React.StrictMode>
 );
 
