@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Outfit:wght@100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --bodyColor: #0f172a;
+  --primaryColor: #1e293b;
+  --secondaryColor: #87a7cba1;
+  --primaryFont: "Urbanist", sans-serif;
+  --primaryText: #fff;
+}
+.previewBody {
+  background-color: var(--bodyColor);
+  font-family: var(--primaryFont);
+  color: var(--secondaryColor);
+  font-size: 17px;
+  letter-spacing: 1px;
+  scroll-behavior: smooth;
+}
+.navTopBarContainer {
+  padding: 10px;
+  border-bottom: 1px solid #87a7cba1;
+}
+.navBarTopContainerSub {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  font-size: 15px;
+}
+.text_button {
+  border: 1px solid #fff;
+  padding: 4px 13px;
+  border-radius: 10px;
+  color: #fff;
+}
+.previewContainer {
+  max-width: 1400px;
+  width: 96%;
+  margin: auto;
+}
+.bannerTitle {
+  font-size: 60px;
+  font-family: "Urbanist", sans-serif;
+}
+.bannerSection {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 100px 0;
+  align-items: center;
+
+  /* column-gap: 5px; */
+}
+.bannerRight {
+  display: flex;
+  justify-content: flex-end;
+}
+.bannerImage {
+  width: 600px;
+  max-width: 100%;
+  border-radius: 10px;
+  /* margin-top: 100px; */
+}
+
+.coinsNameBox {
+  background-image: linear-gradient(
+    -225deg,
+    #fff 0,
+    #ffffff 29%,
+    var(--primaryColor) 20%,
+    #fff 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: 10s linear infinite textclip;
+  color: transparent;
+}
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+.pl_15 {
+  padding-right: 15px;
+}
+.pr_15 {
+  padding-right: 15px;
+}
+.pr_20 {
+  padding-right: 20px;
+}
+.w_50 {
+  width: 50%;
+}
+.bannerPara {
+  font-size: 16px;
+  margin-top: 20px;
+}
