@@ -21,19 +21,15 @@ app.use((req, res, next) => {
 });
 // CORS Configuration
 const cors = require("cors");
+
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:3001",
-    // "https://your-production-site.com",
-  ], // Allowed origins
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-  allowedHeaders: ["Content-Type", "application/json"], // Allowed headers
-  credentials: true, // Allows credentials (cookies, auth headers)
+  origin: "*", // Allows all origins
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allows all common methods
+  allowedHeaders: "*", // Allows all headers
+  credentials: true, // Allows credentials (cookies, authorization headers, etc.)
 };
 
 app.use(cors(corsOptions));
-
 // Use item routes
 app.use("/api/items", itemRoutes);
 app.use("/api/users", userRoutes);
