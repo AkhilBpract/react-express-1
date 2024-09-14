@@ -1,6 +1,5 @@
 const express = require("express");
 const connectDB = require("./config/db");
-const itemRoutes = require("./routes/itemRoutes");
 const userRoutes = require("./routes/users");
 const taskRoutes = require("./routes/taskRoutes");
 
@@ -11,7 +10,6 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
 // Middleware for request timeout
@@ -21,19 +19,16 @@ app.use((req, res, next) => {
   });
   next();
 });
-// CORS Configuration
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "*",
+  origin: ["http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allows all common methods
   allowedHeaders: "*",
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-// Use item routes
-app.use("/api/items", itemRoutes);
 app.use("/api", userRoutes);
 app.use("/api/task", taskRoutes);
 

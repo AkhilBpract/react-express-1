@@ -1,6 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import { Button, Card, TextField, Typography } from "@mui/material";
-import { Box, Stack } from "@mui/system";
+import { Box, Stack, useMediaQuery } from "@mui/system";
 
 import ReactFormProvider from "src/components/react-form-provider";
 import useRegister from "./hook/use-register";
@@ -12,13 +12,13 @@ const Index = () => {
   const {
     formState: { isSubmitting },
   } = methods;
-
+  const matches = useMediaQuery("(min-width:600px)");
   return (
     <>
       <Box
         sx={{
           width: "100%",
-          maxWidth: 480,
+          maxWidth: matches ? 480 : "100%",
           margin: "auto",
           display: "flex",
           minHeight: "60vh",
@@ -27,13 +27,17 @@ const Index = () => {
         }}
       >
         <Box sx={{ p: 2 }}>
-          <Typography color="blue" variant="h6">
-            Register
+          <Typography color="blue" sx={{ fontWeight: 700 }} variant="h6">
+            Signup
           </Typography>
           <Card
             sx={{
               p: 3,
-              width: 500,
+              width: matches ? 500 : "100%",
+              boxShadow: 2,
+              border: "2px solid #3377f5",
+              borderRadius: 2,
+              mt: 2,
             }}
           >
             <ReactFormProvider methods={methods} onSubmit={onSubmit}>

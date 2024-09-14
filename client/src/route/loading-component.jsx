@@ -1,9 +1,16 @@
+import { LinearProgress } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { Suspense } from "react";
 
 const LoadingComponent = (Component) => (props) => {
-    console.log(props)
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      }
+    >
       <Component {...props} />
     </Suspense>
   );

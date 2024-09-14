@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Card, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography, useMediaQuery } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import FormTextField from "src/components/form-text-field";
@@ -12,13 +12,13 @@ const Login = () => {
   const {
     formState: { isSubmitting },
   } = methods;
-
+  const matches = useMediaQuery("(min-width:600px)");
   return (
     <>
       <Box
         sx={{
           width: "100%",
-          maxWidth: 480,
+          maxWidth: matches ? 480 : "100%",
           margin: "auto",
           display: "flex",
           minHeight: "60vh",
@@ -33,7 +33,7 @@ const Login = () => {
           <Card
             sx={{
               p: 3,
-              width: 500,
+              width: matches ? 500 : "100%",
               boxShadow: 2,
               border: "2px solid #3377f5",
               borderRadius: 2,

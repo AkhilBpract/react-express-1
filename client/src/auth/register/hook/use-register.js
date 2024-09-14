@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import axiosInstance from "src/components/axios";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import useGetProfile from "src/home/hook/use-get-profile";
 
 const schema = Yup.object().shape({
   first_name: Yup.string().required("First name is required"),
@@ -26,6 +27,8 @@ const defaultValues = {
 };
 
 const useRegister = () => {
+  const fetchProfile = useGetProfile();
+
   const navigate = useNavigate();
   const methods = useForm({ defaultValues, resolver: yupResolver(schema) });
   const { enqueueSnackbar } = useSnackbar();
@@ -37,6 +40,9 @@ const useRegister = () => {
         inputData
       );
       if (status === 201) {
+        localStorage.setItem("accessToken", data.token);
+        localStorage.setItem("isLogin", true);
+        fetchProfile();
         enqueueSnackbar(data.message, { variant: "success" });
         navigate("/user");
       }

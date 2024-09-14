@@ -1,68 +1,71 @@
 import { Icon } from "@iconify/react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, useMediaQuery } from "@mui/material";
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import useLogout from "./hook/use-logout";
 
 const Layout = () => {
   const isLogin = localStorage.getItem("isLogin") === "true";
-  console.log(isLogin);
   const logout = useLogout();
+  const matches = useMediaQuery("(min-width:600px)");
   return (
     <>
-      <Box
-        sx={{
-          p: 2,
-          backgroundColor: "#3377f5",
-          height: 60,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Icon
-          icon="ri:file-list-fill"
-          style={{ color: "white", width: 30, height: 30 }}
-        />
-        <Box sx={{ display: "flex" }}>
-          {isLogin ? (
-            <Button
-              sx={{
-                backgroundColor: "green",
-                textTransform: "none",
-              }}
-              variant="contained"
-              onClick={logout}
-            >
-              Logout
-            </Button>
-          ) : (
-            <>
+      {matches && (
+        <Box
+          sx={{
+            p: 2,
+            backgroundColor: "#3377f5",
+            height: 60,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Icon
+            icon="ri:file-list-fill"
+            style={{ color: "white", width: 30, height: 30 }}
+          />
+          <Box sx={{ display: "flex" }}>
+            {isLogin ? (
               <Button
                 sx={{
-                  backgroundColor: "white",
-                  color: "#3377f5",
+                  backgroundColor: "green",
                   textTransform: "none",
                 }}
                 variant="contained"
-                size="small"
-                component={Link}
-                to="/auth/login"
+                onClick={logout}
               >
-                Login
+                Logout
               </Button>
-              <Button
-                component={Link}
-                to="/auth/register"
-                size="small"
-                sx={{ color: "white", textTransform: "none" }}
-              >
-                Signup
-              </Button>
-            </>
-          )}
+            ) : (
+              <>
+                <Button
+                  sx={{
+                    backgroundColor: "white",
+                    color: "#3377f5",
+                    textTransform: "none",
+                  }}
+                  variant="contained"
+                  size="small"
+                  component={Link}
+                  to="/auth/login"
+                >
+                  Login
+                </Button>
+                <Button
+                  component={Link}
+                  to="/auth/register"
+                  size="small"
+                  sx={{ color: "white", textTransform: "none" }}
+                >
+                  Signup
+                </Button>
+              </>
+            )}
+          </Box>
         </Box>
-      </Box>
+      )}
+
       <Outlet />
     </>
   );
