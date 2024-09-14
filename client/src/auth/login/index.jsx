@@ -28,7 +28,7 @@ const Login = () => {
       });
 
       const { token } = res.data;
-      localStorage.setItem("token", token); // Save the token or handle it as needed
+      localStorage.setItem("token", token);
       console.log("Login successful:", res.data.message);
     } catch (error) {
       console.error("Error sending token to backend:", error);
@@ -98,7 +98,7 @@ const Login = () => {
                     buttonText="Login with Google"
                     onSuccess={handleGoogleSuccess}
                     onFailure={(response) =>
-                      console.error("Google Sign-In Error:", response.error)
+                      console.error("Google Sign-In Error:", response)
                     }
                     cookiePolicy={"single_host_origin"}
                     render={(renderProps) => (
