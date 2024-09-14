@@ -6,10 +6,13 @@ const FormTextField = ({ name, label, multiline = false, rows, ...sx }) => {
   const {
     formState: { errors },
     register,
+    watch,
   } = useFormContext();
+  const value = watch(name);
   return (
     <TextField
       multiline
+      value={value}
       rows={rows}
       {...register(name)}
       error={Boolean(errors[name]?.message) ? true : false}

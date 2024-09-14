@@ -10,13 +10,11 @@ import AuthContext from "./auth/auth-provider/jwt-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <AuthContext>
-        <App />
-      </AuthContext>
-    </HelmetProvider>
-  </React.StrictMode>
+  <HelmetProvider>
+    <AuthContext>
+      <App />
+    </AuthContext>
+  </HelmetProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -7,7 +7,7 @@ import ReactFormProvider from "src/components/react-form-provider";
 import useLogin from "./hook/login";
 
 const Login = () => {
-  const { methods, onSubmit } = useLogin();
+  const { methods, onSubmit ,} = useLogin();
   const {
     formState: { isSubmitting },
   } = methods;
@@ -49,7 +49,7 @@ const Login = () => {
                   loading={isSubmitting}
                   type="submit"
                 >
-                  Register
+                  Login
                 </LoadingButton>
               </Stack>
             </ReactFormProvider>

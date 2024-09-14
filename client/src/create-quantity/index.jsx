@@ -9,7 +9,6 @@ const Index = () => {
     try {
       const { data } = await axios.get("/api/items");
       // const res = await fetch("/api/items").then((response) => response.json());
-      console.log(data);
       setData(data);
     } catch (err) {
       console.log(err);

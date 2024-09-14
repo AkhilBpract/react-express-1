@@ -8,7 +8,6 @@ const useGetProfile = () => {
     try {
       const { status, data } = await axiosInstance("api/profile");
       if (status === 200) {
-        console.log(data);
         dispatch({
           type: "SUCCESS_LOGIN",
           payload: data.data,

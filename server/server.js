@@ -35,7 +35,7 @@ app.use(cors(corsOptions));
 // Use item routes
 app.use("/api/items", itemRoutes);
 app.use("/api", userRoutes);
-app.use("/api", taskRoutes);
+app.use("/api/task", taskRoutes);
 
 const PORT = process.env.PORT || 5000;
 
