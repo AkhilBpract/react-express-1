@@ -12,13 +12,12 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error)
-    // if (error.response?.status === 401) {
-    //   return (window.location = "/auth/login");
-    // }
-    // return Promise.reject(
-    //   (error.response && error.response.data) || "Something went wrong"
-    // );
+    if (error.response?.status === 401) {
+      return (window.location = "/auth/login");
+    }
+    return Promise.reject(
+      (error.response && error.response.data) || "Something went wrong"
+    );
   }
 );
 
