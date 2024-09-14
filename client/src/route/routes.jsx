@@ -1,6 +1,7 @@
 import React, { lazy, useEffect } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import LoadingComponent from "./loading-component";
+import Layout from "src/layout/layout";
 
 const ErrorPage = LoadingComponent(lazy(() => import("./error-page.jsx")));
 const Login = LoadingComponent(lazy(() => import("../auth/login/index.jsx")));
@@ -14,6 +15,7 @@ const Routes = () => {
     { path: "/", element: <Navigate to="auth" /> },
     {
       path: "auth",
+      element: <Layout />,
       children: [
         { index: true, element: <Navigate to="register" /> },
         { path: "login", element: <Login title="test" /> },

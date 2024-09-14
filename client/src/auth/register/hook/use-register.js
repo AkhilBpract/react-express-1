@@ -10,7 +10,6 @@ const schema = Yup.object().shape({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
   email: Yup.string().email().required("Email is required"),
-  password: Yup.string().required("First name is required"),
   password: Yup.string().required("Password is required"),
   confirm_password: Yup.string().oneOf(
     [Yup.ref("password"), null],
@@ -34,13 +33,10 @@ const useRegister = () => {
     severity: "info",
   });
   const onSubmit = async (inputData) => {
-    // const formData = new FormData();
-    // Object.entries(inputData).forEach(([k, v]) => formData.append(k, v));
     try {
       const { status, data } = await axiosInstance.post(
-        "api/users",
-        inputData,
-        {}
+        "api/register",
+        inputData
       );
       if (status === 201) {
         setOpenSnackBar({

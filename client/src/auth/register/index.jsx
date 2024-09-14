@@ -23,7 +23,7 @@ const Index = () => {
           maxWidth: 480,
           margin: "auto",
           display: "flex",
-          minHeight: "90vh",
+          minHeight: "60vh",
           flexDirection: "column",
           justifyContent: "center",
         }}

@@ -13,7 +13,7 @@ axiosInstance.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      return (window.location = "/auth/login");
+      // return (window.location = "/auth/login");
     }
     return Promise.reject(
       (error.response && error.response.data) || "Something went wrong"
@@ -22,10 +22,10 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstance.interceptors.request.use(function (config) {
-  // const token = localStorage.getItem("accessToken");
-  // if (token) {
-  //   config.headers.Authorization = "Bearer ";
-  // }
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers.Authorization = "Bearer " + token;
+  }
 
   return config;
 });

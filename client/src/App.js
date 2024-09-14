@@ -1,15 +1,16 @@
 import React from "react";
 import Routes from "./route/routes";
-import {
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Page from "./components/Page";
+import AuthContext from "./auth/auth-provider/jwt-context";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
+    <AuthContext>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </AuthContext>
   );
 };
 

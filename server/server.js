@@ -32,7 +32,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 // Use item routes
 app.use("/api/items", itemRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
