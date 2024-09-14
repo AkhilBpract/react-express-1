@@ -1,7 +1,10 @@
+import { useSnackbar } from "notistack";
 import React, { useState, useCallback } from "react";
 import axiosInstance from "src/components/axios";
 
 const useHandleTask = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [tasks, setTasks] = useState({
     to_do: [],
     in_progress: [],
@@ -60,10 +63,17 @@ const useHandleTask = () => {
       }));
 
       try {
-        await axiosInstance.put(`/api/task/${taskToMove._id}`, {
-          status: destination.droppableId,
-        });
+        const { data, status } = await axiosInstance.put(
+          `/api/task/${taskToMove._id}`,
+          {
+            status: destination.droppableId,
+          }
+        );
+        if (status === 200) {
+          enqueueSnackbar(data.message, { variant: "success" });
+        }
       } catch (error) {
+        enqueueSnackbar(error.message, { variant: "error" });
         console.error("Failed to update task status", error);
       }
     }

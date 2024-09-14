@@ -1,9 +1,12 @@
+import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "src/auth/auth-provider/jwt-context";
 import axiosInstance from "src/components/axios";
 
 const useGetProfile = () => {
   const { dispatch } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
+
   const fetchProfile = async () => {
     try {
       const { status, data } = await axiosInstance("api/profile");
@@ -14,7 +17,7 @@ const useGetProfile = () => {
         });
       }
     } catch (err) {
-      console.log(err);
+      enqueueSnackbar(err.message, { variant: "error" });
     }
   };
   return fetchProfile;

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Routes from "./route/routes";
 import { BrowserRouter } from "react-router-dom";
 import useGetProfile from "./home/hook/use-get-profile";
+import { SnackbarProvider } from "notistack";
 
 const App = () => {
   const fetchProfile = useGetProfile();
@@ -14,7 +15,9 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes />
+      <SnackbarProvider>
+        <Routes />
+      </SnackbarProvider>
     </BrowserRouter>
   );
 };

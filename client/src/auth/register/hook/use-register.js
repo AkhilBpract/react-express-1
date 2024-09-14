@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axiosInstance from "src/components/axios";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const schema = Yup.object().shape({
   first_name: Yup.string().required("First name is required"),
@@ -27,11 +28,8 @@ const defaultValues = {
 const useRegister = () => {
   const navigate = useNavigate();
   const methods = useForm({ defaultValues, resolver: yupResolver(schema) });
-  const [openSnackbar, setOpenSnackBar] = useState({
-    open: false,
-    message: "",
-    severity: "info",
-  });
+  const { enqueueSnackbar } = useSnackbar();
+
   const onSubmit = async (inputData) => {
     try {
       const { status, data } = await axiosInstance.post(
@@ -39,20 +37,11 @@ const useRegister = () => {
         inputData
       );
       if (status === 201) {
-        setOpenSnackBar({
-          open: true,
-          message: data.message,
-          severity: "success",
-        });
+        enqueueSnackbar(data.message, { variant: "success" });
         navigate("/user");
       }
     } catch (err) {
-      setOpenSnackBar({
-        open: true,
-        message:
-          err.error?.code === 11000 ? "Email already exist" : err.message,
-        severity: "error",
-      });
+      enqueueSnackbar(err.message, { variant: "error" });
       if (Boolean(err.error?.errors)) {
         Object.entries(err.error.errors).forEach(([k, v]) => {
           methods.setError(k, { message: v.message });
@@ -60,7 +49,7 @@ const useRegister = () => {
       }
     }
   };
-  return { methods, onSubmit, openSnackbar };
+  return { methods, onSubmit };
 };
 
 export default useRegister;

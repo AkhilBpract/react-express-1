@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import axiosInstance from "src/components/axios";
 import { useNavigate } from "react-router-dom";
 import useGetProfile from "src/home/hook/use-get-profile";
+import { useSnackbar } from "notistack";
 
 const useLogin = () => {
   const fetchProfile = useGetProfile();
@@ -17,6 +18,7 @@ const useLogin = () => {
     password: "",
   };
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const methods = useForm({ defaultValues, resolver: yupResolver(schema) });
   const onSubmit = async (inputData) => {
     try {
@@ -25,9 +27,11 @@ const useLogin = () => {
         localStorage.setItem("accessToken", data.token);
         localStorage.setItem("isLogin", true);
         fetchProfile();
+        enqueueSnackbar(data.message, { variant: "success" });
         navigate("/user");
       }
     } catch (err) {
+      enqueueSnackbar(err.message, { variant: "error" });
       if (Boolean(err.error?.errors)) {
         Object.entries(err.error.errors).forEach(([k, v]) => {
           methods.setError(k, { message: v.message });
@@ -35,7 +39,7 @@ const useLogin = () => {
       }
     }
   };
-  
+
   return { methods, onSubmit };
 };
 

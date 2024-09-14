@@ -2,15 +2,13 @@ import { LoadingButton } from "@mui/lab";
 import { Button, Card, TextField, Typography } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 
-import { useState } from "react";
-import SnackBar from "src/components/snack-bar";
-import { useForm } from "react-hook-form";
 import ReactFormProvider from "src/components/react-form-provider";
 import useRegister from "./hook/use-register";
 import FormTextField from "src/components/form-text-field";
+import { Link } from "react-router-dom";
 
 const Index = () => {
-  const { methods, onSubmit, openSnackbar } = useRegister();
+  const { methods, onSubmit } = useRegister();
   const {
     formState: { isSubmitting },
   } = methods;
@@ -66,19 +64,45 @@ const Index = () => {
                   variant="contained"
                   loading={isSubmitting}
                   type="submit"
+                  sx={{
+                    textTransform: "none",
+                  }}
                 >
-                  Register
+                  Signup
                 </LoadingButton>
+                <Stack
+                  direction="row"
+                  sx={{ justifyContent: "center", alignItems: "center" }}
+                  spacing={1}
+                >
+                  <Typography variant="subtitle2">
+                    Already have an account?
+                  </Typography>
+                  <Link to="/auth/login" style={{ color: "blue" }}>
+                    Login
+                  </Link>
+                </Stack>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <LoadingButton
+                    variant="contained"
+                    sx={{
+                      textTransform: "none",
+                      width: 200,
+                    }}
+                  >
+                    Login with {""}
+                    {""}
+                    <span style={{ fontWeight: 900, marginLeft: "3px" }}>
+                      {" "}
+                      Google
+                    </span>
+                  </LoadingButton>
+                </Box>
               </Stack>
             </ReactFormProvider>
           </Card>
         </Box>
       </Box>
-      <SnackBar
-        open={openSnackbar.open}
-        message={openSnackbar.message}
-        severity={openSnackbar.severity}
-      />
     </>
   );
 };

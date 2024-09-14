@@ -18,7 +18,8 @@ const Index = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [openView, setOpenView] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
   const handleClose = () => {
     setOpenTask(false);
   };
@@ -41,7 +42,23 @@ const Index = () => {
   useEffect(() => {
     fetchAllTask();
   }, [fetchAllTask]);
+  const filteredTasks = (taskList) => {
+    const filtered = taskList.filter(
+      (task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
+    // Sort tasks based on title or created date
+    return filtered.sort((a, b) => {
+      if (sortOrder === "asc") {
+        return a.title.localeCompare(b.title);
+      } else if (sortOrder === "desc") {
+        return b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
+  };
   return (
     <>
       <Page title="Home">
@@ -58,7 +75,10 @@ const Index = () => {
               Add Task
             </Button>
           </Box>
-          <SearchCard />
+          <SearchCard
+            setSearchQuery={setSearchQuery}
+            setSortOrder={setSortOrder}
+          />
           <DragDropContext onDragEnd={onDragEnd}>
             <Grid
               sx={{
@@ -98,8 +118,8 @@ const Index = () => {
                               {capitalCase(status)}
                             </Typography>
                           </Card>
-                          {tasks[status] && tasks[status].length > 0 ? (
-                            tasks[status].map((task, index) => (
+                          {filteredTasks(tasks[status]).length > 0 ? (
+                            filteredTasks(tasks[status]).map((task, index) => (
                               <Draggable
                                 key={task._id}
                                 draggableId={task._id}

@@ -19,10 +19,6 @@ const Index = () => {
   }, []);
 
   const onSubmit = async (inputData) => {
-    console.log(inputData);
-    // const formData = new FormData();
-
-    // Object.entries(inputData).forEach(([k, v]) => formData.append(k, v));
     try {
       const res = await axios.post("/api/items", inputData);
     } catch (err) {
