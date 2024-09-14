@@ -12,8 +12,11 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      // return (window.location = "/auth/login");
+    if (error.response.status === 401) {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("isLogin");
+
+      return (window.location = "/auth/login");
     }
     return Promise.reject(
       (error.response && error.response.data) || "Something went wrong"

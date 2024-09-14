@@ -1,15 +1,16 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
+import useGetProfile from "../../home/hook/use-get-profile";
 const initial = {
   id: "",
   email: "",
   first_name: "",
   last_name: "",
+  isLogin: false,
 };
 const reducer = (state, { type, payload }) => {
-  console.log(payload);
   switch (type) {
     case "SUCCESS_LOGIN":
-      return { ...payload };
+      return { ...state, isLogin: true, ...payload };
     default:
       return state;
   }

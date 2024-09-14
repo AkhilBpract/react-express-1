@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import axiosInstance from "src/components/axios";
 import { useNavigate } from "react-router-dom";
-import useGetProfile from "src/auth/home/hook/use-get-profile";
+import useGetProfile from "src/home/hook/use-get-profile";
 
 const useLogin = () => {
   const fetchProfile = useGetProfile();
@@ -21,9 +21,9 @@ const useLogin = () => {
   const onSubmit = async (inputData) => {
     try {
       const { status, data } = await axiosInstance.post("api/login", inputData);
-      console.log(status, data);
       if (status === 200) {
         localStorage.setItem("accessToken", data.token);
+        localStorage.setItem("isLogin", true);
         fetchProfile();
         navigate("/user");
       }

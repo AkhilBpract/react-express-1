@@ -2,6 +2,8 @@ const express = require("express");
 const connectDB = require("./config/db");
 const itemRoutes = require("./routes/itemRoutes");
 const userRoutes = require("./routes/users");
+const taskRoutes = require("./routes/taskRoutes");
+
 require("dotenv").config();
 
 const app = express();
@@ -23,16 +25,17 @@ app.use((req, res, next) => {
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "*", // Allows all origins
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allows all common methods
-  allowedHeaders: "*", // Allows all headers
-  credentials: true, // Allows credentials (cookies, authorization headers, etc.)
+  allowedHeaders: "*",
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 // Use item routes
 app.use("/api/items", itemRoutes);
 app.use("/api", userRoutes);
+app.use("/api", taskRoutes);
 
 const PORT = process.env.PORT || 5000;
 

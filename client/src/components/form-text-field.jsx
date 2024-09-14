@@ -2,13 +2,15 @@ import { TextField } from "@mui/material";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-const FormTextField = ({ name, label, ...sx }) => {
+const FormTextField = ({ name, label, multiline = false, rows, ...sx }) => {
   const {
     formState: { errors },
     register,
   } = useFormContext();
   return (
     <TextField
+      multiline
+      rows={rows}
       {...register(name)}
       error={Boolean(errors[name]?.message) ? true : false}
       name={name}

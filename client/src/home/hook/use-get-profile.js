@@ -3,8 +3,7 @@ import { useAuth } from "src/auth/auth-provider/jwt-context";
 import axiosInstance from "src/components/axios";
 
 const useGetProfile = () => {
-  const { user, dispatch } = useAuth();
-  console.log(user);
+  const { dispatch } = useAuth();
   const fetchProfile = async () => {
     try {
       const { status, data } = await axiosInstance("api/profile");
