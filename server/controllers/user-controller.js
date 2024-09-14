@@ -1,29 +1,26 @@
 const Users = require("../models/users");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { OAuth2Client } = require("google-auth-library");
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Register new user
 exports.createItem = async (req, res) => {
   const { first_name, last_name, email, password, confirm_password } = req.body;
 
-  // Check if passwords match
   if (password !== confirm_password) {
-    return res
-      .status(400)
-      .json({ message: "Passwords do not match", error: 400 });
+    return res.status(400).json({ message: "Passwords do not match", error: 400 });
   }
 
   try {
-    // Check if user already exists
     const existingUser = await Users.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    // Encrypt password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create new user
     const newUser = new Users({
       first_name,
       last_name,
@@ -31,25 +28,13 @@ exports.createItem = async (req, res) => {
       password: hashedPassword,
     });
 
-    // Save user in the database
     await newUser.save();
-    const user = await Users.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "User not found" });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: newUser._id, email: newUser.email },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-    res
-      .status(201)
-      .json({ token, message: "Registration Successful", status: 200 });
+    res.status(201).json({ token, message: "Registration Successful", status: 200 });
   } catch (error) {
     res.status(400).json({ message: "Error", error });
   }
@@ -69,7 +54,6 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
@@ -90,6 +74,7 @@ exports.getItems = async (req, res) => {
     res.status(500).json({ message: "Error fetching users", error: err });
   }
 };
+
 exports.getProfile = async (req, res) => {
   try {
     res.status(200).json({
@@ -103,8 +88,40 @@ exports.getProfile = async (req, res) => {
       status: 200,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching user details", error: error.message }); // Internal Server Error
+    res.status(500).json({ message: "Error fetching user details", error: error.message });
+  }
+};
+
+exports.googleLogin = async (req, res) => {
+  const { idToken } = req.body;
+
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const { sub, email, name } = payload;
+
+    let user = await Users.findOne({ email });
+
+    if (!user) {
+      user = new Users({
+        googleId: sub,
+        email,
+        name,
+      });
+      await user.save();
+    }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({ token, message: "Google login successful", status: 200 });
+  } catch (error) {
+    res.status(500).json({ message: "Error logging in with Google", error });
   }
 };
